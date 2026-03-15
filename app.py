@@ -1,13 +1,20 @@
 import random
 import streamlit as st
+from logic_utils import check_guess
+
+OUTCOME_MESSAGES = {
+    "Win":      "🎉 Correct!",
+    "Too High": "📉 Go LOWER!",
+    "Too Low":  "📈 Go HIGHER!",
+}
 
 def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
         return 1, 20
     if difficulty == "Normal":
-        return 1, 100
-    if difficulty == "Hard":
         return 1, 50
+    if difficulty == "Hard":
+        return 1, 100
     return 1, 100
 
 
@@ -27,24 +34,6 @@ def parse_guess(raw: str):
         return False, None, "That is not a number."
 
     return True, value, None
-
-
-def check_guess(guess, secret):
-    if guess == secret:
-        return "Win", "🎉 Correct!"
-
-    try:
-        if guess > secret:
-            return "Too High", "📈 Go HIGHER!"
-        else:
-            return "Too Low", "📉 Go LOWER!"
-    except TypeError:
-        g = str(guess)
-        if g == secret:
-            return "Win", "🎉 Correct!"
-        if g > secret:
-            return "Too High", "📈 Go HIGHER!"
-        return "Too Low", "📉 Go LOWER!"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
@@ -76,10 +65,10 @@ difficulty = st.sidebar.selectbox(
     ["Easy", "Normal", "Hard"],
     index=1,
 )
-
+# FIXME(fixed): Logic breaks here
 attempt_limit_map = {
-    "Easy": 6,
-    "Normal": 8,
+    "Easy": 10,
+    "Normal": 7,
     "Hard": 5,
 }
 attempt_limit = attempt_limit_map[difficulty]
@@ -93,7 +82,7 @@ if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
 if "attempts" not in st.session_state:
-    st.session_state.attempts = 1
+    st.session_state.attempts = 0
 
 if "score" not in st.session_state:
     st.session_state.score = 0
@@ -107,7 +96,7 @@ if "history" not in st.session_state:
 st.subheader("Make a guess")
 
 st.info(
-    f"Guess a number between 1 and 100. "
+    f"Guess a number between {low} and {high}. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
 )
 
@@ -131,9 +120,12 @@ with col2:
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
 
+#FIXME(fixed): logic breaks here, the new game button doesnt reset the "You already won" message and blocking from entering a new guess
+#FIXME: logic breaks here, there might be an issues with number of attempts when new game is started all difficulties show choosing between 1 and 100 numbers
 if new_game:
     st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
+    st.session_state.status = "playing"
+    st.session_state.secret = random.randint(low, high)
     st.success("New game started.")
     st.rerun()
 
@@ -159,11 +151,11 @@ if submit:
             secret = str(st.session_state.secret)
         else:
             secret = st.session_state.secret
-
-        outcome, message = check_guess(guess_int, secret)
+        # FIXME(fixed): this might need to be moved
+        outcome = check_guess(guess_int, secret)
 
         if show_hint:
-            st.warning(message)
+            st.warning(OUTCOME_MESSAGES[outcome])
 
         st.session_state.score = update_score(
             current_score=st.session_state.score,

@@ -12,13 +12,27 @@ def parse_guess(raw: str):
     raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
 
 
-def check_guess(guess, secret):
+def check_guess(guess, secret) -> str:
     """
-    Compare guess to secret and return (outcome, message).
+    Compares the guess with the secret number and returns the outcome.
 
-    outcome examples: "Win", "Too High", "Too Low"
+    Args:
+        guess (int): The guessed number.
+        secret (int or str): The secret number to compare against.
+
+    Returns:
+        str: The outcome — "Win", "Too High", or "Too Low".
     """
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    if guess == secret:
+        return "Win"
+
+    try:
+        return "Too High" if guess > secret else "Too Low"
+    except TypeError:
+        g = str(guess)
+        if g == secret:
+            return "Win"
+        return "Too High" if g > secret else "Too Low"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
