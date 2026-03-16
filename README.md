@@ -25,13 +25,15 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [ The games purpose is for the user to have fun trying to guess one number with varying number ranges and attemps based on selected difficulty level ] Describe the game's purpose.
+
+- [ The majority of the bugs where easily found in testing. Some bugs i found include, Easy mode and Normal mode having seemingly swapped number of attempts. Normal and Hard mode having seemingly swapped number ranges. Attempts where off by a number. Attempts would be shared between difficulties. The "Start" game button wasn't working. Number range was 0 up to 100 in all modes. ] Detail which bugs you found.
+
+- [ Fixes include swapping certain logic that the developer had gotten mixed up such as 2 modes having seemingly swapped attempts (ie. Easy Mode having 5 attempts and Normal mode having 8 attempts), so i would find that code snippet and swap them back. Later on in my testing i found that attempts where 0 to 100 on all modes for some reason, and I was able to fix the function call from random.randint(1,100) to random.randint(low,high) according to the mode] Explain what fixes you applied.
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+- [![alt text](image.png)] [Insert a screenshot of your fixed, winning game here]
 
 ## 🚀 Stretch Features
 
