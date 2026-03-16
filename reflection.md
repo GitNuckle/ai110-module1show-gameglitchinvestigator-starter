@@ -1,12 +1,10 @@
 # 💭 Reflection: Game Glitch Investigator
 
-Answer each question in 3 to 5 sentences. Be specific and honest about what actually happened while you worked. This is about your process, not trying to sound perfect.
+There was a difficulty mismatch between Normal and Hard mode; Normal mode has 100 numbers while Hard has 50 numbers. Clearly Hard mode is easier than Normal mode in this case. There is an "attempts" mismatch in Easy and Medium modes. Easy has 6 attempts and Medium has 8 attempts, this is wrong since difficulty should increase from Easy to Medium, and 8 attempts in Medium is easier to get than Easy. Finally there is a logic issue, for example, my secret number is 63, my input is 50, and the hint is telling me to go lower, witch is incorrect it should tell me to go higher since 63 is higher than 50.
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the secret number kept changing" or "the hints were backwards").
+There was a difficulty mismatch between Normal and Hard mode; Normal mode has 100 numbers while Hard has 50 numbers. Clearly Hard mode is easier than Normal mode in this case. There is an "attempts" mismatch in Easy and Medium modes. Easy has 6 attempts and Medium has 8 attempts, this is wrong since difficulty should increase from Easy to Medium, and 8 attempts in Medium is easier to get than Easy. Finally there is a logic issue, for example, my secret number is 63, my input is 50, and the hint is telling me to go lower, witch is incorrect it should tell me to go higher since 63 is higher than 50.
 
 ---
 
